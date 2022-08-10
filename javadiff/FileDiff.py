@@ -7,6 +7,7 @@ import ntpath
 import pandas as pd
 from subprocess import run
 from collections import Counter
+import collections
 
 try:
     from .SourceFile import SourceFile
@@ -220,7 +221,7 @@ class FileDiff(object):
         ans['added_lines-removed_lines'] = after['changed_lines'] - before['changed_lines']
         ans['used_added_lines+used_removed_lines'] = after['changed_used_lines'] + before['changed_used_lines']
         ans['used_added_lines-used_removed_lines'] = after['changed_used_lines'] - before['changed_used_lines']
-        return ans
+        return collections.OrderedDict(sorted(ans.items()))
 
 
 class FormatPatchFileDiff(FileDiff):
