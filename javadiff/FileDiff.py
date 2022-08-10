@@ -71,12 +71,13 @@ class FileDiff(object):
 
                 for k in self.after_file.osa_metrics:
                     self.osa_metrics[k] = self.after_file.osa_metrics[k] - self.before_file.osa_metrics[k]
-                run([get_java_exe_by_version(11), '-cp', os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                                                      r'..\externals\RefactoringMiner-2.2.0\RefactoringMiner-2.2.0\lib\*')),
-                     'org.refactoringminer.RefactoringMiner', '-bd', self.before_file.path_to_dir_source,
-                     self.after_file.path_to_dir_source, self.commit_sha, '-json', rf_json])
-                self.refactorings = refactoring_miner_loader(rf_json)
-            except:
+#                 run([get_java_exe_by_version(11), '-cp', os.path.abspath(os.path.join(os.path.dirname(__file__),
+#                                                                                       r'..\externals\RefactoringMiner-2.2.0\RefactoringMiner-2.2.0\lib\*')),
+#                      'org.refactoringminer.RefactoringMiner', '-bd', self.before_file.path_to_dir_source,
+#                      self.after_file.path_to_dir_source, self.commit_sha, '-json', rf_json])
+#                 self.refactorings = refactoring_miner_loader(rf_json)
+            except Exception as e:
+                print(f"erorr_shir FileDiff {e}")
                 pass
             finally:
                 if ast_diff_json:
